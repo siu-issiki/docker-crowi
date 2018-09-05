@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  crowi:
+    build: Dockerfile
+    environment: 
+      - CROWI_VERSION:1.7.0
+      - MATHJAX=1
+    command: npm start
+    ports:
+      - 3000:3000
+    volumes:
+      - ./crowi_data/:/data/
+      - ./entrypoint.sh:/entrypoint.sh
+    links:
+      - mongo:db
+      - redis:redis
+      - elasticsearch:es
+
+  mongo:
+    image: mongo
+    volumes:
+      - ./mongodb_data/db:/data/db
+
+  redis:
+    image: redis:alpine
+
+  elasticsearch:
+    image: elasticsearch:2
+    entrypoint:
+      - bash
+      - -c
+      - >-
+        bin/plugin list | grep -q analysis-kuromoji
+        || bin/plugin install analysis-kuromoji
+        && exec /docker-entrypoint.sh $$0 $$@
+    command: elasticsearch
