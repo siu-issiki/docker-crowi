@@ -2,9 +2,10 @@ version: '2'
 
 services:
   crowi:
-    build: Dockerfile
+    build: 
+      context: .
+      dockerfile: Dockerfile
     environment: 
-      - CROWI_VERSION:1.7.0
       - MATHJAX=1
     command: npm start
     ports:
