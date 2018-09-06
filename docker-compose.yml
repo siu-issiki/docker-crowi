@@ -16,7 +16,7 @@ services:
     links:
       - mongo:db
       - redis:redis
-      - elasticsearch:es
+      - es:es
 
   mongo:
     image: mongo
@@ -26,13 +26,20 @@ services:
   redis:
     image: redis:alpine
 
-  elasticsearch:
-    image: elasticsearch:2
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.4
+    environment:
+      # パスワードの入力を省略するためX-Packを切る
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    # プラグインのKuromojiが必要
     entrypoint:
       - bash
       - -c
       - >-
-        bin/plugin list | grep -q analysis-kuromoji
-        || bin/plugin install analysis-kuromoji
-        && exec /docker-entrypoint.sh $$0 $$@
-    command: elasticsearch
+        elasticsearch-plugin list | grep -q analysis-kuromoji
+        || elasticsearch-plugin install analysis-kuromoji
+        && exec $$0 $$@
+    command:
+      - /bin/bash
+      - bin/es-docker
