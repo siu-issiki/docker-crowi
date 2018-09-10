@@ -1,0 +1,1 @@
+02 3 * * * /bin/sh /s3_dump_upload.sh
