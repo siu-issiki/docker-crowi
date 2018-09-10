@@ -7,6 +7,7 @@ services:
       dockerfile: docker/crowi.Dockerfile
     environment: 
       - MATHJAX=1
+      - FILE_UPLOAD=aws
     command: npm start
     ports:
       - 80:3000
