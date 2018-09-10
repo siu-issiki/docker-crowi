@@ -62,6 +62,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - bucket=${bucket}
     volumes:
       - ./backup/mongodb.repo:/etc/yum.repos.d/mongodb.repo
       - ./backup/s3_dump_upload.sh:/s3_dump_upload.sh
