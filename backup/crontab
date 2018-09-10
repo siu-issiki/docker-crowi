@@ -1,1 +1,1 @@
-* * * * * /bin/sh /s3_dump_upload.sh
+02 03 * * * /bin/sh /s3_dump_upload.sh
