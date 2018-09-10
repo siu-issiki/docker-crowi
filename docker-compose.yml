@@ -4,7 +4,7 @@ services:
   crowi:
     build: 
       context: .
-      dockerfile: crowi.Dockerfile
+      dockerfile: docker/crowi.Dockerfile
     environment: 
       - MATHJAX=1
     command: npm start
@@ -55,7 +55,7 @@ services:
   backup:
     build: 
       context: .
-      dockerfile: backup.Dockerfile
+      dockerfile: docker/backup.Dockerfile
       args:
         - awscli_version=1.11.130
     environment: 
@@ -63,9 +63,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
     volumes:
-      - ./mongodb_data/db:/db
-      - ./mongodb.repo:/etc/yum.repos.d/mongodb.repo
-      - ./s3_dump_upload.sh:/s3_dump_upload.sh
-      - ./crontab:/var/spool/cron/crontabs/root
+      - ./backup/mongodb.repo:/etc/yum.repos.d/mongodb.repo
+      - ./backup/s3_dump_upload.sh:/s3_dump_upload.sh
+      - ./backup/crontab:/var/spool/cron/crontabs/root
     links:
       - mongo:db
