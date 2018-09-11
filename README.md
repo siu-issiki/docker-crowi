@@ -1,7 +1,7 @@
 # How to use
 ## clone this repository
 ```
-$git clone https://github.com/siu-issiki/docker-crowi
+$ git clone https://github.com/siu-issiki/docker-crowi
 ```
 
 ## write .env
@@ -45,5 +45,5 @@ volumes:
 ## mongorestore on backup container
 example
 ```
-$ docker-compose run backup mongodump --host db --port 27017 -d crowi --dir crowi.dump/crowi
+$ docker-compose run backup mongorestore --host db --port 27017 -d crowi --dir crowi.dump/crowi
 ```
