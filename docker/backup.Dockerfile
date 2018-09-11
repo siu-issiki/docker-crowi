@@ -15,4 +15,6 @@ RUN apt-get update; \
 
 RUN curl -kL https://bootstrap.pypa.io/get-pip.py | python; pip install awscli==${awscli_version}
 
+COPY backup/crontab /var/spool/cron/crontabs/root
+
 CMD busybox crond -l 2 -f

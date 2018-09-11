@@ -67,6 +67,5 @@ services:
     volumes:
       - ./backup/mongodb.repo:/etc/yum.repos.d/mongodb.repo
       - ./backup/s3_dump_upload.sh:/s3_dump_upload.sh
-      - ./backup/crontab:/var/spool/cron/crontabs/root
     links:
       - mongo:db
